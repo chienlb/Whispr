@@ -28,7 +28,7 @@ function createWindow() {
     minHeight: 650,
     title: 'Whispr Social Enterprise',
     icon: iconPath,
-    backgroundColor: '#050711',
+    backgroundColor: '#f8fafc',
     show: false,
     webPreferences: {
       nodeIntegration: true,

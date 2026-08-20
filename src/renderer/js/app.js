@@ -1,5 +1,5 @@
 /* ==========================================================================
-   WHISPR ULTIMATE - FRONTEND CONTROLLER & MULTI-FEATURE ENGINE
+   WHISPR SOCIAL - MULTI-LANGUAGE (i18n), ABOUT MODAL & FEATURE SUITE
    ========================================================================== */
 
 (function () {
@@ -12,16 +12,117 @@
 
   let currentUser = null;
   let currentChannelId = 'chan_1';
-  let activeViewMode = 'social'; // 'social', 'kanban'
+  let activePage = 'social'; // 'social', 'kanban', 'directory', 'analytics', 'chat', 'settings'
+  let currentLang = 'vi'; // 'vi', 'en'
+
+  // i18n TRANSLATION DICTIONARY
+  const i18nData = {
+    vi: {
+      aboutTitle: 'Giới Thiệu Whispr Social',
+      aboutSub: 'Nền Tảng Trò Chuyện & Mạng Xã Hội Đa Tính Năng',
+      btnClose: 'Đóng',
+      btnCreatePost: 'Tạo Bài Viết',
+      searchPh: 'Tìm kiếm bài viết, thành viên, hashtag...',
+      createPostPh: 'Bạn đang suy nghĩ gì hôm nay? Chia sẻ cùng cộng đồng...',
+      btnImage: 'Hình ảnh',
+      btnPublish: 'Đăng bài',
+      notifyHeader: 'Thông Báo Mới',
+      settingsTitle: '⚙️ Cài Đặt Hệ Thống & Tùy Chỉnh Cá Nhân',
+      settingLangTitle: 'Ngôn Ngữ Hiển Thị (Language)',
+      settingLangSub: 'Chọn giữa Tiếng Việt 🇻🇳 và English 🇬🇧',
+      settingThemeTitle: 'Giao diện Sáng / Tối',
+      settingThemeSub: 'Đổi tông màu nền làm việc giữa Light Slate White và Obsidian Dark',
+      settingAboutTitle: 'Thông Tin Phiên Bản Whispr',
+      settingNotifyTitle: 'Thông Báo Desktop Windows',
+      settingNotifySub: 'Hiển thị thông báo OS khi có bài viết hoặc tin nhắn mới',
+      btnSaveSettings: 'Lưu Cài Đặt',
+      navSocial: 'Bảng Tin',
+      navChat: 'Trò Chuyện',
+      navDirectory: 'Cộng Đồng',
+      navKanban: 'Kế Hoạch',
+      navAnalytics: 'Thống Kê',
+      navSettings: 'Cài Đặt'
+    },
+    en: {
+      aboutTitle: 'About Whispr Social',
+      aboutSub: 'Feature-Rich Social Network & Real-time Platform',
+      btnClose: 'Close',
+      btnCreatePost: 'Create Post',
+      searchPh: 'Search posts, members, hashtags...',
+      createPostPh: 'What is on your mind today? Share with the community...',
+      btnImage: 'Media Image',
+      btnPublish: 'Publish Post',
+      notifyHeader: 'Recent Notifications',
+      settingsTitle: '⚙️ System Settings & Preferences',
+      settingLangTitle: 'Display Language',
+      settingLangSub: 'Choose between Tiếng Việt 🇻🇳 and English 🇬🇧',
+      settingThemeTitle: 'Theme Mode (Light / Dark)',
+      settingThemeSub: 'Toggle work backdrop between Light Slate White and Obsidian Dark',
+      settingAboutTitle: 'Whispr Release Version',
+      settingNotifyTitle: 'Windows Desktop Notifications',
+      settingNotifySub: 'Show OS notifications when new posts or messages arrive',
+      btnSaveSettings: 'Save Preferences',
+      navSocial: 'Feed Timeline',
+      navChat: 'Direct Chat',
+      navDirectory: 'Community',
+      navKanban: 'Task Board',
+      navAnalytics: 'Analytics',
+      navSettings: 'Settings'
+    }
+  };
+
+  function switchLanguage(lang) {
+    currentLang = lang || (currentLang === 'vi' ? 'en' : 'vi');
+
+    // Update Flag & Text in Header
+    const flagEl = document.getElementById('current-lang-flag');
+    const textEl = document.getElementById('current-lang-text');
+    const settingsLangText = document.getElementById('settings-lang-text');
+
+    if (flagEl) flagEl.textContent = currentLang === 'vi' ? '🇻🇳' : '🇬🇧';
+    if (textEl) textEl.textContent = currentLang === 'vi' ? 'VI' : 'EN';
+    if (settingsLangText) settingsLangText.textContent = currentLang === 'vi' ? 'Tiếng Việt' : 'English';
+
+    // Translate DOM elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18nData[currentLang] && i18nData[currentLang][key]) {
+        el.textContent = i18nData[currentLang][key];
+      }
+    });
+
+    // Translate input placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (i18nData[currentLang] && i18nData[currentLang][key]) {
+        el.placeholder = i18nData[currentLang][key];
+      }
+    });
+
+    // Translate Sidebar Navigation Labels
+    const navSocial = document.querySelector('#nav-page-social span');
+    const navChat = document.querySelector('#nav-page-chat span');
+    const navDirectory = document.querySelector('#nav-page-directory span');
+    const navKanban = document.querySelector('#nav-page-kanban span');
+    const navAnalytics = document.querySelector('#nav-page-analytics span');
+    const navSettings = document.querySelector('#nav-page-settings span');
+
+    if (navSocial) navSocial.textContent = i18nData[currentLang].navSocial;
+    if (navChat) navChat.textContent = i18nData[currentLang].navChat;
+    if (navDirectory) navDirectory.textContent = i18nData[currentLang].navDirectory;
+    if (navKanban) navKanban.textContent = i18nData[currentLang].navKanban;
+    if (navAnalytics) navAnalytics.textContent = i18nData[currentLang].navAnalytics;
+    if (navSettings) navSettings.textContent = i18nData[currentLang].navSettings;
+  }
 
   function initTheme() {
-    const savedTheme = localStorage.getItem('whispr_theme') || 'dark';
+    const savedTheme = localStorage.getItem('whispr_theme') || 'light';
     document.body.dataset.theme = savedTheme;
     updateThemeIcon(savedTheme);
   }
 
   function toggleTheme() {
-    const curr = document.body.dataset.theme === 'light' ? 'light' : 'dark';
+    const curr = document.body.dataset.theme === 'dark' ? 'dark' : 'light';
     const next = curr === 'dark' ? 'light' : 'dark';
     document.body.dataset.theme = next;
     localStorage.setItem('whispr_theme', next);
@@ -31,7 +132,7 @@
   function updateThemeIcon(theme) {
     const icon = document.getElementById('theme-toggle-icon');
     if (!icon) return;
-    if (theme === 'light') {
+    if (theme === 'dark') {
       icon.className = 'fa-solid fa-moon';
     } else {
       icon.className = 'fa-solid fa-sun';
@@ -90,17 +191,21 @@
 
   function initializeFallbackData() {
     users = [
-      { id: 'user_1', name: 'Alex Rivera', role: 'CTO', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', isOnline: true },
-      { id: 'user_2', name: 'Elena Rostova', role: 'Lead UX', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', isOnline: true }
+      { id: 'user_1', name: 'Alex Rivera', role: 'Chief Technology Officer', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', isOnline: true, username: '@alexrivera' },
+      { id: 'user_2', name: 'Elena Rostova', role: 'Lead UX/UI Designer', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', isOnline: true, username: '@elena_ux' },
+      { id: 'user_3', name: 'Sarah Chen', role: 'Senior Product Manager', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150', isOnline: false, username: '@sarahchen' },
+      { id: 'user_4', name: 'Marcus Vance', role: 'Lead Backend Engineer', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150', isOnline: true, username: '@marcus_v' }
     ];
     stories = [
-      { id: 'story_1', userName: 'Elena Rostova', userAvatar: users[1].avatar, caption: 'Aether Aurora UI Live!' }
+      { id: 'story_1', userName: 'Elena Rostova', userAvatar: users[1].avatar, caption: 'Whispr Social v2.4.0 Live!' }
     ];
     posts = [
-      { id: 'post_101', authorId: 'user_2', content: '🎉 Chào mừng đến với Whispr Ultimate Platform!', timestamp: '14:30', likes: ['user_1'], comments: [] }
+      { id: 'post_101', authorId: 'user_2', content: '🎉 Chào mừng đến với Whispr Social Platform! Hãy cùng giao lưu kết nối bạn bè khắp nơi!', timestamp: '14:30', likes: ['user_1'], comments: [] }
     ];
     channels = [
-      { id: 'chan_1', name: 'Thảo Luận Chung', icon: '💬' }
+      { id: 'chan_1', name: 'Thảo Luận General', icon: '💬', description: 'Trò chuyện & giao lưu toàn thể cộng đồng Whispr' },
+      { id: 'chan_2', name: 'Tin Tức & Sự Kiện', icon: '📢', description: 'Thông báo & sự kiện nổi bật' },
+      { id: 'chan_3', name: 'Công Nghệ & AI', icon: '⚡', description: 'Thảo luận lập trình, công nghệ & AI' }
     ];
     currentUser = users[0];
     renderQuickDemoUsers();
@@ -140,6 +245,8 @@
     renderSocialFeed();
     renderSidebarChannels();
     renderOnlineMembers();
+    renderTeamDirectory();
+    renderChatMessages();
     setupSocket();
   }
 
@@ -183,6 +290,7 @@
         const u = users.find(x => x.id === userId);
         if (u) u.isOnline = isOnline;
         renderOnlineMembers();
+        renderTeamDirectory();
       });
     } else if (socket && currentUser) {
       socket.emit('user:online', currentUser.id);
@@ -208,12 +316,12 @@
     const addStory = document.createElement('div');
     addStory.className = 'story-item';
     addStory.innerHTML = `
-      <div class="story-ring-avatar" style="background:var(--border-glass);">
-        <div style="width:100%; height:100%; border-radius:50%; background:var(--bg-input); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--aurora-cyan);">
+      <div class="story-ring-avatar" style="border-color:var(--border-color);">
+        <div style="width:100%; height:100%; border-radius:50%; background:var(--bg-input); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--primary);">
           <i class="fa-solid fa-plus"></i>
         </div>
       </div>
-      <span class="story-author-name">Tạo Story</span>
+      <span style="font-size:0.75rem; font-weight:700;">Tạo Story</span>
     `;
     container.appendChild(addStory);
 
@@ -224,7 +332,7 @@
         <div class="story-ring-avatar">
           <img src="${st.userAvatar}" title="${st.caption}">
         </div>
-        <span class="story-author-name">${st.userName.split(' ')[0]}</span>
+        <span style="font-size:0.75rem; font-weight:700;">${st.userName.split(' ')[0]}</span>
       `;
 
       item.addEventListener('click', () => {
@@ -235,59 +343,39 @@
     });
   }
 
-  function renderSocialFeed() {
+  function renderSocialFeed(filteredPosts = null) {
     const container = document.getElementById('social-feed-container');
     if (!container) return;
     container.innerHTML = '';
 
-    posts.forEach(post => {
-      const author = users.find(u => u.id === post.authorId) || { name: 'Thành viên', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', role: 'Nhân viên' };
+    const displayList = filteredPosts || posts;
+
+    displayList.forEach(post => {
+      const author = users.find(u => u.id === post.authorId) || { name: 'Thành viên', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', role: 'Thành viên' };
       const isLiked = currentUser ? post.likes.includes(currentUser.id) : false;
       const likesCount = post.likes.length;
 
       const card = document.createElement('div');
       card.className = 'social-post-card';
-      card.dataset.id = post.id;
 
       let mediaHTML = '';
       if (post.image) {
         mediaHTML = `
-          <div style="border-radius:14px; overflow:hidden; border:1px solid var(--border-glass); max-height:360px;">
+          <div style="border-radius:12px; overflow:hidden; border:1px solid var(--border-color); max-height:360px;">
             <img src="${post.image}" alt="Post Media" style="width:100%; height:100%; object-fit:cover; display:block;">
-          </div>
-        `;
-      }
-
-      let voicePlayerHTML = '';
-      if (post.id === 'post_101') {
-        voicePlayerHTML = `
-          <div class="voice-player-card">
-            <button class="voice-play-btn" title="Phát Voice Note">
-              <i class="fa-solid fa-play"></i>
-            </button>
-            <div class="voice-eq-bars">
-              <div class="eq-bar active"></div>
-              <div class="eq-bar active"></div>
-              <div class="eq-bar active"></div>
-              <div class="eq-bar active"></div>
-              <div class="eq-bar active"></div>
-              <div class="eq-bar"></div>
-              <div class="eq-bar"></div>
-            </div>
-            <span style="font-size:0.72rem; color:var(--text-secondary);">0:24</span>
           </div>
         `;
       }
 
       let commentsHTML = '';
       if (post.comments && post.comments.length > 0) {
-        commentsHTML = `<div style="background:rgba(0,0,0,0.2); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px;">`;
+        commentsHTML = `<div style="background:var(--bg-input); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px;">`;
         post.comments.forEach(c => {
           const cAuthor = users.find(u => u.id === c.authorId) || { name: 'Thành viên', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150' };
           commentsHTML += `
             <div style="display:flex; gap:10px; font-size:0.84rem;">
               <img src="${cAuthor.avatar}" style="width:26px; height:26px; border-radius:50%; object-fit:cover;">
-              <div style="background:var(--bg-surface); padding:6px 12px; border-radius:10px; border:1px solid var(--border-glass);">
+              <div style="background:var(--bg-card); padding:6px 12px; border-radius:10px; border:1px solid var(--border-color);">
                 <span style="font-weight:800; font-size:0.8rem;">${cAuthor.name}</span>
                 <span style="font-size:0.82rem; margin-left:6px;">${escapeHTML(c.text)}</span>
               </div>
@@ -302,7 +390,10 @@
           <div style="display:flex; align-items:center; gap:12px;">
             <img src="${author.avatar}" style="width:42px; height:42px; border-radius:50%; object-fit:cover;">
             <div>
-              <div style="font-weight:800; font-size:0.95rem;">${author.name}</div>
+              <div style="font-weight:800; font-size:0.95rem; display:flex; align-items:center; gap:4px;">
+                <span>${author.name}</span>
+                <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:0.8rem;" title="Đã xác thực"></i>
+              </div>
               <div style="font-size:0.78rem; color:var(--text-secondary);">${author.role} • ${post.timestamp}</div>
             </div>
           </div>
@@ -310,9 +401,8 @@
 
         <div style="font-size:0.92rem; line-height:1.55;">${formatMarkdown(post.content)}</div>
         ${mediaHTML}
-        ${voicePlayerHTML}
 
-        <div style="display:flex; justify-content:space-around; padding-top:12px; border-top:1px solid var(--border-glass);">
+        <div style="display:flex; justify-content:space-around; padding-top:12px; border-top:1px solid var(--border-color);">
           <button class="btn-like-action ${isLiked ? 'liked' : ''}" data-post-id="${post.id}">
             <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart"></i>
             <span>${likesCount > 0 ? likesCount : ''} Thả tim</span>
@@ -361,7 +451,7 @@
   function renderSidebarChannels() {
     const container = document.getElementById('channels-list-sidebar');
     if (!container) return;
-    container.innerHTML = '';
+    container.innerHTML = '<div style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin:8px 0 6px 12px; letter-spacing:0.5px;">Phòng Chat Trực Tuyến</div>';
 
     channels.forEach(ch => {
       const item = document.createElement('div');
@@ -369,14 +459,17 @@
       item.innerHTML = `
         <div class="channel-icon-box">${ch.icon || '💬'}</div>
         <div>
-          <div class="chat-name-text"># ${ch.name}</div>
-          <div class="chat-preview-text">${ch.description || 'Kênh thảo luận'}</div>
+          <div style="font-size:0.88rem; font-weight:700;"># ${ch.name}</div>
+          <div style="font-size:0.78rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${ch.description || 'Kênh thảo luận'}</div>
         </div>
       `;
 
       item.addEventListener('click', () => {
         currentChannelId = ch.id;
         renderSidebarChannels();
+        switchViewPage('chat');
+        const titleText = document.getElementById('chat-title-text');
+        if (titleText) titleText.textContent = `# ${ch.name}`;
       });
 
       container.appendChild(item);
@@ -404,6 +497,60 @@
         </div>
       `;
       container.appendChild(item);
+    });
+  }
+
+  function renderTeamDirectory(filteredUsers = null) {
+    const grid = document.getElementById('directory-members-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const list = filteredUsers || users.filter(u => !u.isBot);
+
+    list.forEach(u => {
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      card.innerHTML = `
+        <div style="position:relative;">
+          <img src="${u.avatar}" class="member-avatar-lg">
+          <div class="online-dot-mini" style="width:12px; height:12px; background:${u.isOnline ? '#10b981' : '#94a3b8'}; border-width:2px;"></div>
+        </div>
+        <div>
+          <div style="font-weight:800; font-size:0.95rem; display:flex; align-items:center; justify-content:center; gap:4px;">
+            <span>${u.name}</span>
+            <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:0.8rem;"></i>
+          </div>
+          <div style="font-size:0.78rem; color:var(--primary); font-weight:700; margin-top:2px;">${u.role}</div>
+          <div style="font-size:0.74rem; color:var(--text-muted); margin-top:4px;">${u.username}</div>
+        </div>
+        <button class="btn-submit-auth" style="padding:6px 16px; font-size:0.8rem; border-radius:10px;">Nhắn Tin</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderChatMessages() {
+    const container = document.getElementById('chat-messages-scroll');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const list = messages[currentChannelId] || [
+      { id: 'm1', senderId: 'user_2', content: 'Chào mừng cả nhà đến với kênh thảo luận!', timestamp: '14:20' }
+    ];
+
+    list.forEach(m => {
+      const sender = users.find(u => u.id === m.senderId) || { name: 'Thành viên', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150' };
+      const bubble = document.createElement('div');
+      bubble.style.display = 'flex';
+      bubble.style.gap = '10px';
+      bubble.innerHTML = `
+        <img src="${sender.avatar}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+        <div class="chat-bubble">
+          <div style="font-weight:800; font-size:0.8rem; margin-bottom:2px;">${sender.name} <span style="font-weight:400; color:var(--text-muted); font-size:0.72rem; margin-left:6px;">${m.timestamp}</span></div>
+          <div>${formatMarkdown(m.content)}</div>
+        </div>
+      `;
+      container.appendChild(bubble);
     });
   }
 
@@ -438,13 +585,16 @@
   }
 
   function setupEventListeners() {
-    const themeBtn = document.getElementById('dock-btn-theme');
+    const themeBtn = document.getElementById('sidebar-btn-theme');
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+    const logoutBtn = document.getElementById('sidebar-btn-logout');
+    if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
 
     const googleBtn = document.getElementById('btn-google-login');
     if (googleBtn) {
       googleBtn.addEventListener('click', () => {
-        alert('🔒 Đã xác thực Google Workspace OAuth thành công!');
+        alert('🔒 Đã xác thực Google Account thành công!');
         loginUser(users[0]);
       });
     }
@@ -456,29 +606,98 @@
       });
     }
 
-    const logoutBtn = document.getElementById('dock-btn-logout');
-    if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
-
     const badgeUserBtn = document.getElementById('current-user-badge');
     if (badgeUserBtn) badgeUserBtn.addEventListener('click', logoutUser);
 
-    const btnFeed = document.getElementById('dock-btn-feed');
-    if (btnFeed) btnFeed.addEventListener('click', () => switchViewMode('social'));
+    // LANGUAGE SWITCHER BUTTON
+    const headerLangBtn = document.getElementById('header-btn-lang');
+    const settingsLangBtn = document.getElementById('btn-toggle-settings-lang');
 
-    const btnKanban = document.getElementById('dock-btn-kanban');
-    if (btnKanban) btnKanban.addEventListener('click', () => switchViewMode('kanban'));
+    if (headerLangBtn) headerLangBtn.addEventListener('click', () => switchLanguage());
+    if (settingsLangBtn) settingsLangBtn.addEventListener('click', () => switchLanguage());
 
-    const btnChats = document.getElementById('dock-btn-chats');
-    if (btnChats) btnChats.addEventListener('click', () => switchViewMode('social'));
+    // ABOUT APP VERSION MODAL
+    const aboutModal = document.getElementById('about-version-modal');
+    const headerAboutBtn = document.getElementById('header-btn-about');
+    const settingsAboutBtn = document.getElementById('btn-settings-about');
+    const closeAboutBtn = document.getElementById('btn-close-about-modal');
+    const confirmAboutBtn = document.getElementById('btn-confirm-about');
 
-    const tabSocial = document.getElementById('tab-view-social');
-    if (tabSocial) tabSocial.addEventListener('click', () => switchViewMode('social'));
+    const openAboutModal = () => { if (aboutModal) aboutModal.classList.remove('hidden'); };
+    const closeAboutModal = () => { if (aboutModal) aboutModal.classList.add('hidden'); };
 
-    const tabKanban = document.getElementById('tab-view-kanban');
-    if (tabKanban) tabKanban.addEventListener('click', () => switchViewMode('kanban'));
+    if (headerAboutBtn) headerAboutBtn.addEventListener('click', openAboutModal);
+    if (settingsAboutBtn) settingsAboutBtn.addEventListener('click', openAboutModal);
+    if (closeAboutBtn) closeAboutBtn.addEventListener('click', closeAboutModal);
+    if (confirmAboutBtn) confirmAboutBtn.addEventListener('click', closeAboutModal);
 
-    const tabChannels = document.getElementById('tab-view-channels');
-    if (tabChannels) tabChannels.addEventListener('click', () => switchViewMode('social'));
+    // NOTIFICATIONS DROPDOWN PANEL TOGGLE
+    const notifyBtn = document.getElementById('header-btn-notify');
+    const notifyPanel = document.getElementById('notifications-dropdown-panel');
+
+    if (notifyBtn && notifyPanel) {
+      notifyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notifyPanel.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!notifyPanel.contains(e.target) && e.target !== notifyBtn) {
+          notifyPanel.classList.add('hidden');
+        }
+      });
+    }
+
+    // GLOBAL SEARCH FILTER WITH (Ctrl + K)
+    const globalSearchInput = document.getElementById('global-search-input');
+    if (globalSearchInput) {
+      globalSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) {
+          renderSocialFeed();
+          renderTeamDirectory();
+          return;
+        }
+
+        const filteredP = posts.filter(p => p.content.toLowerCase().includes(query));
+        const filteredU = users.filter(u => u.name.toLowerCase().includes(query) || u.role.toLowerCase().includes(query));
+
+        renderSocialFeed(filteredP);
+        renderTeamDirectory(filteredU);
+      });
+    }
+
+    const headerCreatePostBtn = document.getElementById('header-btn-create-post');
+    if (headerCreatePostBtn) {
+      headerCreatePostBtn.addEventListener('click', () => {
+        switchViewPage('social');
+        const postInput = document.getElementById('create-post-input');
+        if (postInput) postInput.focus();
+      });
+    }
+
+    // HOTKEY CTRL + K FOCUS SEARCH
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (globalSearchInput) globalSearchInput.focus();
+      }
+    });
+
+    // 6-PAGE NAVIGATION EVENT LISTENERS
+    const navSocial = document.getElementById('nav-page-social');
+    const navKanban = document.getElementById('nav-page-kanban');
+    const navDir = document.getElementById('nav-page-directory');
+    const navAnalytics = document.getElementById('nav-page-analytics');
+    const navChat = document.getElementById('nav-page-chat');
+    const navSettings = document.getElementById('nav-page-settings');
+
+    if (navSocial) navSocial.addEventListener('click', () => switchViewPage('social'));
+    if (navKanban) navKanban.addEventListener('click', () => switchViewPage('kanban'));
+    if (navDir) navDir.addEventListener('click', () => switchViewPage('directory'));
+    if (navAnalytics) navAnalytics.addEventListener('click', () => switchViewPage('analytics'));
+    if (navChat) navChat.addEventListener('click', () => switchViewPage('chat'));
+    if (navSettings) navSettings.addEventListener('click', () => switchViewPage('settings'));
 
     const submitPostBtn = document.getElementById('btn-submit-post');
     if (submitPostBtn) submitPostBtn.addEventListener('click', handleCreatePost);
@@ -502,31 +721,52 @@
         }
       });
     }
+
+    const toggleSettingsTheme = document.getElementById('btn-toggle-settings-theme');
+    if (toggleSettingsTheme) toggleSettingsTheme.addEventListener('click', toggleTheme);
   }
 
-  function switchViewMode(mode) {
-    activeViewMode = mode;
-    const btnFeed = document.getElementById('tab-view-social');
-    const btnKanban = document.getElementById('tab-view-kanban');
-    const btnChannels = document.getElementById('tab-view-channels');
-    const feedContainer = document.getElementById('social-feed-container');
-    const postContainer = document.getElementById('create-post-container');
-    const kanbanView = document.getElementById('kanban-board-view');
+  function switchViewPage(pageId) {
+    activePage = pageId;
 
-    if (mode === 'social') {
-      if (btnFeed) btnFeed.classList.add('active');
-      if (btnKanban) btnKanban.classList.remove('active');
-      if (btnChannels) btnChannels.classList.remove('active');
-      if (feedContainer) feedContainer.style.display = 'flex';
+    document.querySelectorAll('.page-nav-item').forEach(el => el.classList.remove('active'));
+
+    const targetNav = document.getElementById(`nav-page-${pageId}`);
+    if (targetNav) targetNav.classList.add('active');
+
+    const socialFeed = document.getElementById('social-feed-container');
+    const postContainer = document.getElementById('create-post-container');
+    const storiesBar = document.getElementById('stories-container');
+
+    const kanbanView = document.getElementById('kanban-board-view');
+    const dirView = document.getElementById('page-directory-view');
+    const analyticsView = document.getElementById('page-analytics-view');
+    const chatView = document.getElementById('page-chat-view');
+    const settingsView = document.getElementById('page-settings-view');
+
+    if (socialFeed) socialFeed.style.display = 'none';
+    if (postContainer) postContainer.style.display = 'none';
+    if (storiesBar) storiesBar.style.display = 'none';
+    if (kanbanView) kanbanView.style.display = 'none';
+    if (dirView) dirView.style.display = 'none';
+    if (analyticsView) analyticsView.style.display = 'none';
+    if (chatView) chatView.style.display = 'none';
+    if (settingsView) settingsView.style.display = 'none';
+
+    if (pageId === 'social') {
+      if (socialFeed) socialFeed.style.display = 'flex';
       if (postContainer) postContainer.style.display = 'block';
-      if (kanbanView) kanbanView.style.display = 'none';
-    } else if (mode === 'kanban') {
-      if (btnKanban) btnKanban.classList.add('active');
-      if (btnFeed) btnFeed.classList.remove('active');
-      if (btnChannels) btnChannels.classList.remove('active');
-      if (feedContainer) feedContainer.style.display = 'none';
-      if (postContainer) postContainer.style.display = 'none';
+      if (storiesBar) storiesBar.style.display = 'flex';
+    } else if (pageId === 'kanban') {
       if (kanbanView) kanbanView.style.display = 'block';
+    } else if (pageId === 'directory') {
+      if (dirView) dirView.style.display = 'flex';
+    } else if (pageId === 'analytics') {
+      if (analyticsView) analyticsView.style.display = 'flex';
+    } else if (pageId === 'chat') {
+      if (chatView) chatView.style.display = 'flex';
+    } else if (pageId === 'settings') {
+      if (settingsView) settingsView.style.display = 'flex';
     }
   }
 

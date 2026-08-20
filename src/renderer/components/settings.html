@@ -1,0 +1,44 @@
+<!-- =================================================================== -->
+<!-- COMPONENT: APP SETTINGS PAGE -->
+<!-- =================================================================== -->
+<div id="page-settings-view" style="width:100%; display:none; flex-direction:column; gap:16px;">
+  <div style="font-weight:800; font-size:1.15rem; color:var(--text-primary);" data-i18n="settingsTitle">⚙️ Cài Đặt Hệ Thống & Tùy Chỉnh Cá Nhân</div>
+
+  <div class="settings-panel">
+    <div class="settings-row">
+      <div>
+        <div style="font-weight:800; font-size:0.9rem;" data-i18n="settingLangTitle">Ngôn Ngữ Hiển Thị (Language)</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="settingLangSub">Chọn giữa Tiếng Việt 🇻🇳 và English 🇬🇧</div>
+      </div>
+      <button class="btn-google-auth" id="btn-toggle-settings-lang" style="width:auto; padding:8px 16px; font-weight:700;">🌐 <span id="settings-lang-text">Tiếng Việt</span></button>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <div style="font-weight:800; font-size:0.9rem;" data-i18n="settingThemeTitle">Giao diện Sáng / Tối</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="settingThemeSub">Đổi tông màu nền làm việc giữa Light Slate White và Obsidian Dark</div>
+      </div>
+      <button class="btn-google-auth" id="btn-toggle-settings-theme" style="width:auto; padding:8px 16px; font-weight:700;">☀️ Đổi Theme</button>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <div style="font-weight:800; font-size:0.9rem;" data-i18n="settingAboutTitle">Thông Tin Phiên Bản Whispr</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);">Whispr Social v2.4.0 (Build 2026.08) Enterprise Edition</div>
+      </div>
+      <button class="btn-google-auth" id="btn-settings-about" style="width:auto; padding:8px 16px; font-weight:700;">ℹ️ Xem Chi Tiết</button>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <div style="font-weight:800; font-size:0.9rem;" data-i18n="settingNotifyTitle">Thông Báo Desktop Windows</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="settingNotifySub">Hiển thị thông báo OS khi có bài viết hoặc tin nhắn mới</div>
+      </div>
+      <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--primary);">
+    </div>
+
+    <div style="display:flex; justify-content:flex-end;">
+      <button class="btn-submit-auth" id="btn-save-settings" style="width:auto; padding:10px 24px;" data-i18n="btnSaveSettings">Lưu Cài Đặt</button>
+    </div>
+  </div>
+</div>

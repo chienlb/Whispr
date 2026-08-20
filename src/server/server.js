@@ -129,10 +129,10 @@ let posts = [
 ];
 
 const channels = [
-  { id: 'chan_1', name: 'Thảo Luận Chung', slug: 'general', type: 'channel', icon: '💬', description: 'Kênh thảo luận chung toàn công ty Whispr' },
-  { id: 'chan_2', name: 'Thông Báo Chính Thức', slug: 'announcements', type: 'channel', icon: '📢', description: 'Tin tức & sự kiện quan trọng' },
-  { id: 'chan_3', name: 'Dev & Engineering', slug: 'engineering', type: 'channel', icon: '⚡', description: 'Kỹ thuật, Code & Architecture' },
-  { id: 'chan_4', name: 'UI/UX Glassmorphism', slug: 'ui-ux-design', type: 'channel', icon: '🎨', description: 'Giao diện & Trải nghiệm người dùng' }
+  { id: 'chan_1', name: 'Thảo Luận General', slug: 'general', type: 'channel', icon: '💬', description: 'Trò chuyện & giao lưu toàn thể cộng đồng Whispr' },
+  { id: 'chan_2', name: 'Tin Tức & Sự Kiện', slug: 'announcements', type: 'channel', icon: '📢', description: 'Thông báo & sự kiện nổi bật' },
+  { id: 'chan_3', name: 'Công Nghệ & AI', slug: 'engineering', type: 'channel', icon: '⚡', description: 'Thảo luận lập trình, công nghệ & AI' },
+  { id: 'chan_4', name: 'Nghệ Thuật & Sáng Tạo', slug: 'ui-ux-design', type: 'channel', icon: '🎨', description: 'Giao lưu thiết kế, âm nhạc & sáng tạo' }
 ];
 
 let messages = {

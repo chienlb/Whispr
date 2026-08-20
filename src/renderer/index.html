@@ -3,60 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whispr Ultimate Enterprise Platform</title>
+  <title>Whispr Social Platform</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
   <!-- COMPONENT 1: AUTHENTICATION OVERLAY -->
   <div id="component-auth"></div>
 
+  <!-- ABOUT APP VERSION MODAL -->
+  <div class="modal-overlay hidden" id="about-version-modal">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; width:100%; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img src="assets/logo.png" style="width:32px; height:32px; object-fit:contain;">
+          <span style="font-weight:800; font-size:1.1rem;" data-i18n="aboutTitle">Giới Thiệu Whispr Social</span>
+        </div>
+        <button class="icon-action-btn" id="btn-close-about-modal" style="width:28px; height:28px;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; margin:14px 0;">
+        <div style="font-weight:800; font-size:1.2rem; color:var(--primary);">Whispr Social Enterprise</div>
+        <div style="font-size:0.84rem; font-weight:700; color:var(--text-secondary);">Version 2.4.0 (Build 2026.08)</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="aboutSub">Nền Tảng Trò Chuyện & Mạng Xã Hội Đa Tính Năng</div>
+      </div>
+
+      <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:12px; padding:14px; width:100%; display:flex; flex-direction:column; gap:8px; font-size:0.82rem;">
+        <div style="display:flex; justify-content:space-between;"><span>🟢 Trạng thái WebSockets:</span><span style="font-weight:700; color:#10b981;">Đã kết nối</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>⚡ Hot-Reload Watcher:</span><span style="font-weight:700; color:var(--primary);">Đang hoạt động</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>⚙️ Engine Runtime:</span><span style="font-weight:700;">Electron 28.2.0</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>💾 Bộ nhớ đệm:</span><span style="font-weight:700;">24.2 MB</span></div>
+      </div>
+
+      <div style="width:100%; display:flex; justify-content:flex-end; margin-top:10px;">
+        <button class="btn-submit-auth" id="btn-confirm-about" style="width:auto; padding:8px 20px; font-size:0.85rem;" data-i18n="btnClose">Đóng</button>
+      </div>
+    </div>
+  </div>
+
   <div id="app">
-    <div class="aurora-fluid-bg"></div>
+    <!-- TOP HEADER BAR -->
+    <header class="top-header-bar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/logo.png" style="width:34px; height:34px; object-fit:contain;" alt="Whispr Logo">
+        <span class="brand-text-title" style="font-size:1.15rem;">Whispr Social</span>
+      </div>
 
-    <!-- COMPONENT 2: APP DOCK NAVIGATION -->
-    <div id="component-dock"></div>
+      <!-- SEARCH INPUT BOX WITH HOTKEY BADGE -->
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="global-search-input" class="global-search-input" placeholder="Tìm kiếm bài viết, thành viên, hashtag..." data-i18n-ph="searchPh">
+        <span class="hotkey-badge">Ctrl K</span>
+      </div>
 
-    <!-- COMPONENT 3: NAVIGATION SIDEBAR -->
-    <div id="component-sidebar"></div>
+      <!-- HEADER QUICK ACTIONS & LANGUAGE TOGGLE -->
+      <div style="display:flex; align-items:center; gap:10px;">
+        <!-- LANGUAGE SWITCHER BUTTON -->
+        <button class="icon-action-btn" id="header-btn-lang" title="Đổi Ngôn Ngữ (Tiếng Việt / English)" style="width:auto; padding:0 12px; gap:6px; font-weight:700; font-size:0.82rem;">
+          <span id="current-lang-flag">🇻🇳</span>
+          <span id="current-lang-text">VI</span>
+        </button>
 
-    <!-- MAIN STREAM CANVAS -->
-    <main class="main-canvas">
-      <div class="stories-bar" id="stories-container"></div>
+        <!-- NOTIFICATIONS BUTTON & DROPDOWN -->
+        <div style="position:relative;">
+          <button class="header-icon-btn" id="header-btn-notify" title="Thông báo">
+            <i class="fa-regular fa-bell"></i>
+            <div class="notify-red-dot"></div>
+          </button>
 
-      <div class="stream-scroll">
-        <!-- CREATE POST CARD -->
-        <div class="create-post-card" id="create-post-container">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <img src="" id="create-post-avatar" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
-            <input type="text" id="create-post-input" class="create-post-input" placeholder="Bạn muốn chia sẻ điều gì cùng công ty hôm nay?">
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-glass);">
-            <div style="display:flex; gap:12px;">
-              <button class="post-action-btn" id="btn-post-image"><i class="fa-solid fa-image" style="color:var(--aurora-cyan);"></i> Hình ảnh</button>
-              <button class="post-action-btn" id="btn-post-ai"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--neon-pink);"></i> Tag @WhisprAI</button>
+          <div class="notify-dropdown hidden" id="notifications-dropdown-panel">
+            <div style="font-weight:800; font-size:0.86rem; padding-bottom:8px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+              <span data-i18n="notifyHeader">Thông Báo Mới</span>
+              <span style="font-size:0.72rem; color:var(--primary); cursor:pointer;">Đánh dấu đã đọc</span>
             </div>
-            <button class="btn-submit-auth" id="btn-submit-post" style="width:auto; padding:6px 16px; font-size:0.84rem;">Đăng bài</button>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+              <div style="display:flex; gap:10px; font-size:0.82rem; align-items:center;">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                <div><strong>Elena Rostova</strong> đã thả tim bài viết của bạn</div>
+              </div>
+              <div style="display:flex; gap:10px; font-size:0.82rem; align-items:center;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                <div><strong>Marcus Vance</strong> đã bình luận bài viết</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- SOCIAL FEED POSTS TIMELINE -->
-        <div id="social-feed-container" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:18px;"></div>
+        <button class="header-icon-btn" id="header-btn-about" title="Thông tin phiên bản">
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
 
-        <!-- COMPONENT 4: TASK KANBAN BOARD -->
-        <div id="component-kanban" style="width:100%;"></div>
+        <button class="btn-submit-auth" id="header-btn-create-post" style="width:auto; padding:8px 18px; font-size:0.86rem; display:flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-plus"></i>
+          <span data-i18n="btnCreatePost">Tạo Bài Viết</span>
+        </button>
+
+        <div class="user-badge-btn" id="current-user-badge" title="Tài khoản cá nhân" style="margin-left:2px;">
+          <div class="avatar-wrapper-tiny">
+            <img src="" id="current-user-avatar" alt="User">
+            <div class="online-dot-mini"></div>
+          </div>
+          <span id="current-user-name" style="font-size:0.82rem; font-weight:700;">Alex Rivera</span>
+        </div>
       </div>
-    </main>
+    </header>
 
-    <!-- COMPONENT 5: TRENDING SIDEBAR -->
-    <div id="component-trending"></div>
+    <!-- MAIN WORKSTATION BODY (3-COLUMN GRID) -->
+    <div class="app-body-container">
+      <!-- COMPONENT 2: UNIFIED SLEEK SIDEBAR -->
+      <div id="component-sidebar"></div>
+
+      <!-- MAIN STREAM CANVAS -->
+      <main class="main-canvas">
+        <div class="stories-bar" id="stories-container"></div>
+
+        <div class="stream-scroll">
+          <!-- CREATE POST CARD (SOCIAL FEED VIEW) -->
+          <div class="create-post-card" id="create-post-container">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <img src="" id="create-post-avatar" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+              <input type="text" id="create-post-input" class="create-post-input" placeholder="Bạn đang suy nghĩ gì hôm nay? Chia sẻ cùng cộng đồng..." data-i18n-ph="createPostPh">
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--border-color);">
+              <div style="display:flex; gap:10px;">
+                <button class="btn-like-action" id="btn-post-image"><i class="fa-regular fa-image" style="color:var(--primary);"></i> <span data-i18n="btnImage">Hình ảnh</span></button>
+                <button class="btn-like-action" id="btn-post-ai"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary);"></i> Tag @WhisprAI</button>
+              </div>
+              <button class="btn-submit-auth" id="btn-submit-post" style="width:auto; padding:7px 22px; font-size:0.86rem;" data-i18n="btnPublish">Đăng bài</button>
+            </div>
+          </div>
+
+          <!-- PAGE 1: SOCIAL FEED TIMELINE VIEW -->
+          <div id="social-feed-container" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:18px;"></div>
+
+          <!-- PAGE 2: TASK KANBAN BOARD VIEW -->
+          <div id="component-kanban" style="width:100%;"></div>
+
+          <!-- PAGE 3: TEAM DIRECTORY VIEW -->
+          <div id="component-directory" style="width:100%;"></div>
+
+          <!-- PAGE 4: ANALYTICS DASHBOARD VIEW -->
+          <div id="component-analytics" style="width:100%;"></div>
+
+          <!-- PAGE 5: CHANNEL CHAT ROOM VIEW -->
+          <div id="component-chat" style="width:100%;"></div>
+
+          <!-- PAGE 6: APP SETTINGS VIEW -->
+          <div id="component-settings" style="width:100%;"></div>
+        </div>
+      </main>
+
+      <!-- COMPONENT 3: TRENDING SIDEBAR -->
+      <div id="component-trending"></div>
+    </div>
   </div>
 
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 
-  <!-- DYNAMIC COMPONENT MODULE LOADER & APP ENGINE -->
+  <!-- DYNAMIC COMPONENT MODULE LOADER ENGINE -->
   <script>
     async function loadComponent(elementId, filepath) {
       try {
@@ -70,16 +176,17 @@
     }
 
     async function initApp() {
-      // Load all UI component modules in parallel
       await Promise.all([
         loadComponent('component-auth', 'components/auth.html'),
-        loadComponent('component-dock', 'components/dock.html'),
         loadComponent('component-sidebar', 'components/sidebar.html'),
         loadComponent('component-kanban', 'components/kanban.html'),
+        loadComponent('component-directory', 'components/directory.html'),
+        loadComponent('component-analytics', 'components/analytics.html'),
+        loadComponent('component-chat', 'components/chat.html'),
+        loadComponent('component-settings', 'components/settings.html'),
         loadComponent('component-trending', 'components/trending.html')
       ]);
 
-      // Load main app script AFTER HTML component modules are inserted into DOM!
       const script = document.createElement('script');
       script.src = 'js/app.js';
       document.body.appendChild(script);

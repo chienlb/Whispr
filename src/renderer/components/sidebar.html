@@ -1,34 +1,59 @@
 <!-- =================================================================== -->
-<!-- COMPONENT 3: NAVIGATION SIDEBAR & CHANNELS -->
+<!-- UNIFIED MINIMALIST SIDEBAR -->
 <!-- =================================================================== -->
 <aside class="sidebar">
   <div class="sidebar-header">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <span class="brand-text-title">Whispr Social</span>
+    <div style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Điều Hướng Chính</div>
 
-      <div class="user-badge-btn" id="current-user-badge" title="Tài khoản cá nhân">
-        <div class="avatar-wrapper-tiny">
-          <img src="" id="current-user-avatar" alt="User">
-          <div class="online-dot-mini"></div>
-        </div>
-        <span id="current-user-name" style="font-size:0.8rem; font-weight:700;">Alex Rivera</span>
-        <i class="fa-solid fa-chevron-down" style="font-size:0.6rem; color:var(--text-muted);"></i>
+    <!-- CLEAN VECTOR ICON NAVIGATION MENU WITH BADGES -->
+    <div class="page-nav-list">
+      <div class="page-nav-item active" id="nav-page-social">
+        <i class="fa-regular fa-newspaper"></i>
+        <span>Bảng Tin</span>
       </div>
-    </div>
-
-    <div class="view-tabs-group">
-      <button class="view-tab-btn active" id="tab-view-social">🌐 Bảng Tin Social</button>
-      <button class="view-tab-btn" id="tab-view-kanban">📋 Task Kanban</button>
-      <button class="view-tab-btn" id="tab-view-channels">💬 Kênh Chat</button>
-    </div>
-
-    <div style="position:relative; width:100%;">
-      <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
-      <input type="text" id="search-input" class="auth-input-field" placeholder="Tìm bài viết, thông báo..." style="padding-left:36px; font-size:0.84rem;">
+      <div class="page-nav-item" id="nav-page-chat">
+        <i class="fa-regular fa-comments"></i>
+        <span style="flex:1;">Trò Chuyện</span>
+        <span class="unread-badge">3</span>
+      </div>
+      <div class="page-nav-item" id="nav-page-directory">
+        <i class="fa-solid fa-users"></i>
+        <span>Cộng Đồng</span>
+      </div>
+      <div class="page-nav-item" id="nav-page-kanban">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Kế Hoạch</span>
+      </div>
+      <div class="page-nav-item" id="nav-page-analytics">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Thống Kê</span>
+      </div>
+      <div class="page-nav-item" id="nav-page-settings">
+        <i class="fa-solid fa-gear"></i>
+        <span>Cài Đặt</span>
+      </div>
     </div>
   </div>
 
   <div class="chats-scroll" id="channels-list-sidebar">
-    <!-- Rendered dynamically -->
+    <div style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin:8px 0 6px 12px; letter-spacing:0.5px;">Phòng Chat Trực Tuyến</div>
+    <!-- Channels rendered dynamically -->
+  </div>
+
+  <!-- SIDEBAR FOOTER ACTIONS -->
+  <div style="padding:16px; border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:700; color:var(--text-secondary);">
+      <i class="fa-solid fa-circle" style="font-size:0.5rem; color:#10b981;"></i>
+      <span>Whispr Online</span>
+    </div>
+
+    <div style="display:flex; gap:8px;">
+      <button class="icon-action-btn" id="sidebar-btn-theme" title="Đổi giao diện Sáng/Tối">
+        <i class="fa-solid fa-sun" id="theme-toggle-icon"></i>
+      </button>
+      <button class="icon-action-btn" id="sidebar-btn-logout" title="Đăng Xuất">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
   </div>
 </aside>

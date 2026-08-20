@@ -1,5 +1,5 @@
 <!-- =================================================================== -->
-<!-- COMPONENT 1: AUTHENTICATION OVERLAY & GOOGLE OAUTH -->
+<!-- COMPONENT 1: GLOBAL SOCIAL AUTHENTICATION OVERLAY & GOOGLE OAUTH -->
 <!-- =================================================================== -->
 <div class="auth-overlay" id="auth-overlay">
   <div class="auth-card">
@@ -7,8 +7,8 @@
       <div class="auth-logo-box">
         <img src="assets/logo.png" alt="Whispr Logo">
       </div>
-      <div style="font-weight:800; font-size:1.4rem; letter-spacing:-0.5px; background:linear-gradient(135deg, #fff 30%, var(--aurora-cyan) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">WHISPR ENTERPRISE</div>
-      <div style="font-size:0.84rem; color:var(--text-secondary);">Nền tảng Mạng Xã Hội & Trò Chuyện Doanh Nghiệp</div>
+      <div style="font-weight:800; font-size:1.45rem; color:var(--text-primary);">WHISPR SOCIAL</div>
+      <div style="font-size:0.84rem; color:var(--text-secondary);">Mạng Xã Hội & Trò Chuyện Kết Nối Cho Mọi Người 🌐</div>
     </div>
 
     <!-- GOOGLE OAUTH BUTTON -->
@@ -19,20 +19,20 @@
         <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.29C.47 8.2.0 10.04.0 12s.47 3.8 1.29 5.42l3.99-3.15z"/>
         <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24.0 12 .0 7.31.0 3.26 2.7 1.29 6.58l3.99 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
       </svg>
-      <span>Tiếp tục với Google Workspace</span>
+      <span>Tiếp tục với Tài Khoản Google</span>
     </button>
 
-    <div style="display:flex; align-items:center; width:100%; color:var(--text-muted); font-size:0.76rem; margin:2px 0;">
-      <div style="flex:1; height:1px; background:var(--border-glass);"></div>
-      <span style="padding:0 10px;">hoặc đăng nhập bằng Email</span>
-      <div style="flex:1; height:1px; background:var(--border-glass);"></div>
+    <div style="display:flex; align-items:center; width:100%; color:var(--text-muted); font-size:0.76rem; margin:4px 0;">
+      <div style="flex:1; height:1px; background:var(--border-color);"></div>
+      <span style="padding:0 10px;">hoặc đăng nhập bằng Email / Username</span>
+      <div style="flex:1; height:1px; background:var(--border-color);"></div>
     </div>
 
     <!-- Auth Form -->
     <form style="width:100%; display:flex; flex-direction:column; gap:12px;" onsubmit="return false;">
       <div style="position:relative; width:100%;">
         <i class="fa-solid fa-envelope" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
-        <input type="text" id="auth-username" class="auth-input-field" placeholder="Email công ty..." value="alex.rivera@whispr.io">
+        <input type="text" id="auth-username" class="auth-input-field" placeholder="Email hoặc Tên tài khoản..." value="alex.rivera@whispr.io">
       </div>
 
       <div style="position:relative; width:100%;">
@@ -41,14 +41,14 @@
       </div>
 
       <button type="submit" class="btn-submit-auth" id="btn-auth-submit">
-        🚀 Bắt Đầu Trải Nghiệm Whispr
+        🚀 Tham Gia & Khám Phá Whispr
       </button>
     </form>
 
     <!-- Quick 1-Click Demo Login Grid -->
     <div style="width:100%; display:flex; flex-direction:column; gap:10px;">
-      <div style="font-size:0.75rem; font-weight:800; color:var(--aurora-cyan); text-transform:uppercase; text-align:center;">
-        ⚡ Đăng nhập nhanh Demo (1-Click)
+      <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; text-align:center;">
+        ⚡ Trải nghiệm nhanh dạng Demo (1-Click)
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" id="auth-demo-users-grid">
         <!-- Rendered dynamically -->

@@ -1,7 +1,9 @@
 {
   "name": "whispr-chat",
   "version": "1.0.0",
-  "description": "Whispr Enterprise Social Workspace Application",
+  "description": "Whispr Universal Social Workspace Platform",
+  "author": "Whispr Corporation <contact@whispr.io>",
+  "homepage": "https://whispr.io",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
@@ -12,6 +14,7 @@
   "build": {
     "appId": "com.whispr.social",
     "productName": "Whispr Social Enterprise",
+    "copyright": "Copyright © 2026 Whispr Corporation",
     "directories": {
       "output": "dist_exe"
     },
@@ -21,6 +24,7 @@
     ],
     "win": {
       "target": "portable",
+      "publisherName": "Whispr Social Corporation",
       "icon": "src/renderer/assets/logo.png"
     }
   },
