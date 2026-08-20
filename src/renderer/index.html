@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whispr Ultimate Enterprise Platform</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="dark">
+
+  <!-- COMPONENT 1: AUTHENTICATION OVERLAY -->
+  <div id="component-auth"></div>
+
+  <div id="app">
+    <div class="aurora-fluid-bg"></div>
+
+    <!-- COMPONENT 2: APP DOCK NAVIGATION -->
+    <div id="component-dock"></div>
+
+    <!-- COMPONENT 3: NAVIGATION SIDEBAR -->
+    <div id="component-sidebar"></div>
+
+    <!-- MAIN STREAM CANVAS -->
+    <main class="main-canvas">
+      <div class="stories-bar" id="stories-container"></div>
+
+      <div class="stream-scroll">
+        <!-- CREATE POST CARD -->
+        <div class="create-post-card" id="create-post-container">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="" id="create-post-avatar" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+            <input type="text" id="create-post-input" class="create-post-input" placeholder="Bạn muốn chia sẻ điều gì cùng công ty hôm nay?">
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-glass);">
+            <div style="display:flex; gap:12px;">
+              <button class="post-action-btn" id="btn-post-image"><i class="fa-solid fa-image" style="color:var(--aurora-cyan);"></i> Hình ảnh</button>
+              <button class="post-action-btn" id="btn-post-ai"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--neon-pink);"></i> Tag @WhisprAI</button>
+            </div>
+            <button class="btn-submit-auth" id="btn-submit-post" style="width:auto; padding:6px 16px; font-size:0.84rem;">Đăng bài</button>
+          </div>
+        </div>
+
+        <!-- SOCIAL FEED POSTS TIMELINE -->
+        <div id="social-feed-container" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:18px;"></div>
+
+        <!-- COMPONENT 4: TASK KANBAN BOARD -->
+        <div id="component-kanban" style="width:100%;"></div>
+      </div>
+    </main>
+
+    <!-- COMPONENT 5: TRENDING SIDEBAR -->
+    <div id="component-trending"></div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+  <!-- DYNAMIC COMPONENT MODULE LOADER & APP ENGINE -->
+  <script>
+    async function loadComponent(elementId, filepath) {
+      try {
+        const res = await fetch(filepath);
+        const html = await res.text();
+        const el = document.getElementById(elementId);
+        if (el) el.innerHTML = html;
+      } catch (err) {
+        console.error(`Failed to load component ${filepath}:`, err);
+      }
+    }
+
+    async function initApp() {
+      // Load all UI component modules in parallel
+      await Promise.all([
+        loadComponent('component-auth', 'components/auth.html'),
+        loadComponent('component-dock', 'components/dock.html'),
+        loadComponent('component-sidebar', 'components/sidebar.html'),
+        loadComponent('component-kanban', 'components/kanban.html'),
+        loadComponent('component-trending', 'components/trending.html')
+      ]);
+
+      // Load main app script AFTER HTML component modules are inserted into DOM!
+      const script = document.createElement('script');
+      script.src = 'js/app.js';
+      document.body.appendChild(script);
+    }
+
+    initApp();
+  </script>
+</body>
+</html>

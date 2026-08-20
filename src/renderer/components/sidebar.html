@@ -1,0 +1,34 @@
+<!-- =================================================================== -->
+<!-- COMPONENT 3: NAVIGATION SIDEBAR & CHANNELS -->
+<!-- =================================================================== -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="brand-text-title">Whispr Social</span>
+
+      <div class="user-badge-btn" id="current-user-badge" title="Tài khoản cá nhân">
+        <div class="avatar-wrapper-tiny">
+          <img src="" id="current-user-avatar" alt="User">
+          <div class="online-dot-mini"></div>
+        </div>
+        <span id="current-user-name" style="font-size:0.8rem; font-weight:700;">Alex Rivera</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:0.6rem; color:var(--text-muted);"></i>
+      </div>
+    </div>
+
+    <div class="view-tabs-group">
+      <button class="view-tab-btn active" id="tab-view-social">🌐 Bảng Tin Social</button>
+      <button class="view-tab-btn" id="tab-view-kanban">📋 Task Kanban</button>
+      <button class="view-tab-btn" id="tab-view-channels">💬 Kênh Chat</button>
+    </div>
+
+    <div style="position:relative; width:100%;">
+      <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
+      <input type="text" id="search-input" class="auth-input-field" placeholder="Tìm bài viết, thông báo..." style="padding-left:36px; font-size:0.84rem;">
+    </div>
+  </div>
+
+  <div class="chats-scroll" id="channels-list-sidebar">
+    <!-- Rendered dynamically -->
+  </div>
+</aside>

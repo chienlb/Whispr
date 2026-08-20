@@ -1,0 +1,37 @@
+{
+  "name": "whispr-chat",
+  "version": "1.0.0",
+  "description": "Whispr Enterprise Social Workspace Application",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node src/server/server.js",
+    "dev": "node src/server/server.js",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.whispr.social",
+    "productName": "Whispr Social Enterprise",
+    "directories": {
+      "output": "dist_exe"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "src/renderer/assets/logo.png"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.4.1",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
+  }
+}
