@@ -25,18 +25,18 @@
       "package.json"
     ],
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ],
+      "target": "nsis",
       "icon": "src/renderer/assets/logo.png"
     },
     "nsis": {
       "oneClick": false,
+      "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Whispr Social Enterprise"
+      "shortcutName": "Whispr Social Enterprise",
+      "uninstallDisplayName": "Whispr Social Enterprise",
+      "runAfterFinish": true
     }
   },
   "devDependencies": {
