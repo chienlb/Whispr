@@ -258,7 +258,7 @@ export const translations = {
       titleLine1: "Câu Hỏi",
       titleGradient: "Thường Gặp",
       q1: "Làm thế nào để chạy Whispr Portable mà không cần cài đặt?",
-      a1: 'Bạn chỉ cần bấm nút "Tải File .exe (93.8MB)", lưu tệp về máy tính và nhấp đúp để mở ứng dụng ngay lập tức. Phiên bản Portable chạy trực tiếp độc lập mà không cần qua bất kỳ bước cài đặt nào.',
+      a1: 'Bạn chỉ cần bấm nút "Tải File .exe (105MB)", lưu tệp về máy tính và nhấp đúp để mở ứng dụng ngay lập tức. Phiên bản Portable chạy trực tiếp độc lập mà không cần qua bất kỳ bước cài đặt nào.',
       q2: "Whispr Social Enterprise có hoàn toàn miễn phí không?",
       a2: "Hoàn toàn miễn phí! Tất cả tính năng Trò chuyện Realtime, Bảng Task Kanban, Trợ lý AI và Giao diện Aurora Glass đều được trang bị sẵn cho người dùng và nhóm làm việc.",
       q3: "Trợ lý AI @WhisprAI làm việc như thế nào?",

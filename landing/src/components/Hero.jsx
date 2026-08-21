@@ -57,7 +57,7 @@ export default function Hero({ lang }) {
               </div>
             </div>
             <span style={{ background: 'rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 800 }}>
-              93.8 MB
+              105 MB
             </span>
           </a>
 
