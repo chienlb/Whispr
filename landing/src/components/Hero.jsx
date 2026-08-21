@@ -46,7 +46,7 @@ export default function Hero({ lang }) {
         {/* Centered Download Action Buttons */}
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '14px', flexWrap: 'wrap', width: '100%', marginBottom: '52px' }}>
           {/* Windows Download */}
-          <a href="/download/exe" class="btn-primary" style={{ minWidth: '220px', minHeight: '52px' }}>
+          <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" target="_blank" rel="noreferrer" class="btn-primary" style={{ minWidth: '220px', minHeight: '52px' }}>
             <i class="fa-brands fa-windows" style={{ fontSize: '1.2rem' }}></i>
             <div style={{ textAlign: 'left' }}>
               <div style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 700, textTransform: 'uppercase' }}>
@@ -211,7 +211,7 @@ export default function Hero({ lang }) {
 
             {/* Buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <a href="/download/exe" class="btn-primary" style={{ justifyContent: 'center', padding: '12px 20px' }}>
+              <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" target="_blank" rel="noreferrer" class="btn-primary" style={{ justifyContent: 'center', padding: '12px 20px' }}>
                 <i class="fa-brands fa-windows" style={{ fontSize: '1.1rem' }}></i>
                 <span>{lang === 'en' ? 'Download Windows (.exe) Instead' : 'Tải Bản Windows (.exe) Ngay'}</span>
               </a>

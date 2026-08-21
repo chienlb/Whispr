@@ -32,15 +32,7 @@ app.get('/landing', (req, res) => {
 
 // Express Download Endpoints for Whispr App
 app.get('/download/exe', (req, res) => {
-  const setupPath = path.join(__dirname, '../../release_exe/Whispr Social Enterprise Setup 1.0.0.exe');
-  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-  res.setHeader('Content-Disposition', 'attachment; filename="Whispr Social Enterprise Setup 1.0.0.exe"');
-  res.download(setupPath, 'Whispr Social Enterprise Setup 1.0.0.exe', (err) => {
-    if (err && !res.headersSent) {
-      console.error('[Download] Error sending NSIS setup file:', err);
-      res.status(404).send('Whispr Setup Installer file not found.');
-    }
-  });
+  res.redirect('https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe');
 });
 
 app.get('/download/zip', (req, res) => {
