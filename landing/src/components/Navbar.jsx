@@ -135,7 +135,7 @@ export default function Navbar({ lang, setLang, theme, setTheme }) {
           </button>
 
           {/* Download CTA Button */}
-          <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" target="_blank" rel="noreferrer" class="btn-primary" style={{ padding: '8px 16px', fontSize: '0.84rem', borderRadius: '12px', whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" download="Whispr Social Enterprise Setup 1.0.0.exe" class="btn-primary" style={{ padding: '8px 16px', fontSize: '0.84rem', borderRadius: '12px', whiteSpace: 'nowrap', flexShrink: 0 }}>
             <i class="fa-solid fa-download"></i>
             <span>{t.downloadBtn}</span>
           </a>

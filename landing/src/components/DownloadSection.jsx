@@ -39,7 +39,7 @@ export default function DownloadSection({ lang }) {
             <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '16px', background: 'var(--primary-light)', padding: '4px 12px', borderRadius: '8px' }}>
               📦 v1.0.0 (105 MB)
             </div>
-            <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" target="_blank" rel="noreferrer" class="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.84rem', padding: '10px 14px' }}>
+            <a href="https://pub-e9c6e32e3a214a6882903c35717e07d2.r2.dev/Whispr%20Social%20Enterprise%20Setup%201.0.0.exe" download="Whispr Social Enterprise Setup 1.0.0.exe" class="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.84rem', padding: '10px 14px' }}>
               <i class="fa-solid fa-download"></i>
               <span>{t.winBtn}</span>
             </a>
