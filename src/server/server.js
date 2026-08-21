@@ -12,6 +12,45 @@ app.use(express.json());
 const rendererPath = path.join(__dirname, '../renderer');
 app.use(express.static(rendererPath));
 
+// Serve React Landing Page static files with anti-cache headers
+const landingPath = path.join(__dirname, '../renderer/landing_dist');
+app.use('/landing', express.static(landingPath, {
+  etag: false,
+  maxAge: 0,
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+}));
+
+// Route /landing fallback to index.html
+app.get('/landing', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.sendFile(path.join(landingPath, 'index.html'));
+});
+
+// Express Download Endpoints for Whispr App
+app.get('/download/exe', (req, res) => {
+  const exePath = path.join(__dirname, '../../release_exe/Whispr Social Enterprise 1.0.0.exe');
+  res.download(exePath, 'Whispr Social Enterprise 1.0.0.exe', (err) => {
+    if (err && !res.headersSent) {
+      console.error('[Download] Error sending EXE file:', err);
+      res.status(404).send('Executable file not found.');
+    }
+  });
+});
+
+app.get('/download/zip', (req, res) => {
+  const zipPath = path.join(__dirname, '../../Whispr_Social_App.zip');
+  res.download(zipPath, 'Whispr_Social_App.zip', (err) => {
+    if (err && !res.headersSent) {
+      console.error('[Download] Error sending ZIP file:', err);
+      res.status(404).send('ZIP file not found.');
+    }
+  });
+});
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: { origin: '*', methods: ['GET', 'POST'] }

@@ -9,6 +9,8 @@
     "start": "electron .",
     "server": "node src/server/server.js",
     "dev": "node src/server/server.js",
+    "landing:dev": "npm --prefix landing run dev",
+    "landing:build": "npm --prefix landing run build",
     "build": "electron-builder --win"
   },
   "build": {
@@ -16,7 +18,7 @@
     "productName": "Whispr Social Enterprise",
     "copyright": "Copyright © 2026 Whispr Corporation",
     "directories": {
-      "output": "dist_exe"
+      "output": "release_exe"
     },
     "files": [
       "src/**/*",
@@ -24,7 +26,6 @@
     ],
     "win": {
       "target": "portable",
-      "publisherName": "Whispr Social Corporation",
       "icon": "src/renderer/assets/logo.png"
     }
   },

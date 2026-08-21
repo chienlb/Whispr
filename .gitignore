@@ -5,6 +5,7 @@ node_modules/
 # Production Build Outputs
 dist/
 dist_exe/
+release_exe/
 out/
 build/
 *.exe
