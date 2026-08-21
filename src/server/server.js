@@ -32,11 +32,15 @@ app.get('/landing', (req, res) => {
 
 // Express Download Endpoints for Whispr App
 app.get('/download/exe', (req, res) => {
-  const exePath = path.join(__dirname, '../../release_exe/Whispr Social Enterprise 1.0.0.exe');
-  res.download(exePath, 'Whispr Social Enterprise 1.0.0.exe', (err) => {
+  const fs = require('fs');
+  const setupPath = path.join(__dirname, '../../release_exe/Whispr Social Enterprise Setup 1.0.0.exe');
+  const portablePath = path.join(__dirname, '../../release_exe/Whispr Social Enterprise 1.0.0.exe');
+  const targetPath = fs.existsSync(setupPath) ? setupPath : portablePath;
+  const fileName = path.basename(targetPath);
+  res.download(targetPath, fileName, (err) => {
     if (err && !res.headersSent) {
-      console.error('[Download] Error sending EXE file:', err);
-      res.status(404).send('Executable file not found.');
+      console.error('[Download] Error sending setup file:', err);
+      res.status(404).send('Setup installer file not found.');
     }
   });
 });
