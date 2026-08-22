@@ -13,39 +13,37 @@ export default function FaqSection({ lang }) {
   ];
 
   return (
-    <section id="faq" style={{ padding: '60px 0', position: 'relative' }}>
-      <div class="container">
-        <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 36px auto' }}>
-          <div class="pill-badge" style={{ marginBottom: '12px' }}>
-            <i class="fa-solid fa-circle-question"></i>
+    <section id="faq" className="py-16 relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-xl mx-auto mb-9">
+          <div className="inline-flex items-center justify-center gap-2 bg-emerald-50 dark:bg-[#0a291c] border border-emerald-200 dark:border-[#1b5e43] px-4 py-1.5 rounded-full text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-3">
+            <i className="fa-solid fa-circle-question"></i>
             <span>{t.badge}</span>
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, letterSpacing: '-1px' }}>
-            {t.titleLine1} <span class="text-gradient">{t.titleGradient}</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            {t.titleLine1} <span className="text-gradient">{t.titleGradient}</span>
           </h2>
         </div>
 
-        <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className="max-w-3xl mx-auto flex flex-col gap-3.5">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div 
                 key={idx} 
-                class="card-centered" 
                 onClick={() => setOpenIndex(isOpen ? -1 : idx)}
-                style={{
-                  padding: '18px 24px',
-                  cursor: 'pointer',
-                  borderColor: isOpen ? 'var(--primary)' : 'var(--border-color)',
-                  transition: 'all 0.2s ease'
-                }}
+                className={`bg-white dark:bg-[#11422e] border rounded-2xl p-5 px-6 cursor-pointer transition-all ${
+                  isOpen 
+                    ? 'border-emerald-600 dark:border-emerald-500 shadow-md shadow-emerald-500/10' 
+                    : 'border-slate-200 dark:border-[#1b5e43] hover:border-emerald-500/50'
+                }`}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '1rem' }}>
+                <div className="flex justify-between items-center font-bold text-base text-slate-900 dark:text-white">
                   <span>{faq.q}</span>
-                  <i class={`fa-solid ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`} style={{ color: 'var(--primary)', fontSize: '0.85rem' }}></i>
+                  <i className={`fa-solid ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'} text-emerald-600 dark:text-emerald-400 text-xs`}></i>
                 </div>
                 {isOpen && (
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '12px', lineHeight: 1.6, borderTop: '1px solid var(--border-color)', paddingTop: '12px' }}>
+                  <div className="text-slate-600 dark:text-slate-400 text-sm mt-3 pt-3 border-t border-slate-200 dark:border-[#1b5e43] leading-relaxed">
                     {faq.a}
                   </div>
                 )}

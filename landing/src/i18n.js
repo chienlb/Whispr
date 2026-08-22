@@ -111,7 +111,6 @@ export const translations = {
       colRec: "Recommended Specs",
       os: "Operating System",
       ram: "Memory (RAM)",
-      disk: "Storage Space",
       net: "Network Connection",
     },
     // FAQ
@@ -120,7 +119,7 @@ export const translations = {
       titleLine1: "Frequently Asked",
       titleGradient: "Questions",
       q1: "How do I run Whispr Portable without installing?",
-      a1: 'Simply click the "Download (.exe)" button, save the file (Whispr Social Enterprise 1.0.0.exe), and double click to run it immediately. It runs completely standalone with zero installer required!',
+      a1: 'Simply click the "Download (.exe)" button, save the file (Whispr Social Enterprise Setup 1.0.0.exe), and double click to run it immediately. It runs completely standalone with zero installer required!',
       q2: "Is Whispr Social Enterprise free to use?",
       a2: "Yes! Whispr Social Enterprise is completely free for individual users and team workspaces with full access to Realtime Chat, Kanban Boards, and Whispr AI.",
       q3: "How does the built-in Whispr AI Assistant work?",
@@ -200,7 +199,7 @@ export const translations = {
         "Mã hóa đầu cuối E2E cho mọi cuộc trò chuyện, tệp đính kèm và dữ liệu kênh làm việc cá nhân.",
       f6Title: "Ứng Dụng Portable Nhẹ & Nhanh",
       f6Desc:
-        "Khởi chạy trực tiếp từ file EXE portable mà không cần cài đặt rườm rà. Dung lượng tối ưu và chạy mượt.",
+        "Khởi chạy trực tiếp từ file EXE portable mà không cần cài đặt rườm rà. Chạy cực kỳ mượt mà.",
     },
     // AI Demo
     ai: {
@@ -249,7 +248,6 @@ export const translations = {
       colRec: "Cấu Hình Khuyến Nghị",
       os: "Hệ Điều Hành (OS)",
       ram: "Bộ Nhớ RAM",
-      disk: "Dung Lượng Ô Đĩa",
       net: "Mạng Internet",
     },
     // FAQ
@@ -258,7 +256,7 @@ export const translations = {
       titleLine1: "Câu Hỏi",
       titleGradient: "Thường Gặp",
       q1: "Làm thế nào để chạy Whispr Portable mà không cần cài đặt?",
-      a1: 'Bạn chỉ cần bấm nút "Tải File .exe (105MB)", lưu tệp về máy tính và nhấp đúp để mở ứng dụng ngay lập tức. Phiên bản Portable chạy trực tiếp độc lập mà không cần qua bất kỳ bước cài đặt nào.',
+      a1: 'Bạn chỉ cần bấm nút "Tải File .exe", lưu tệp về máy tính và nhấp đúp để mở ứng dụng ngay lập tức. Phiên bản Portable chạy trực tiếp độc lập mà không cần qua bất kỳ bước cài đặt nào.',
       q2: "Whispr Social Enterprise có hoàn toàn miễn phí không?",
       a2: "Hoàn toàn miễn phí! Tất cả tính năng Trò chuyện Realtime, Bảng Task Kanban, Trợ lý AI và Giao diện Aurora Glass đều được trang bị sẵn cho người dùng và nhóm làm việc.",
       q3: "Trợ lý AI @WhisprAI làm việc như thế nào?",

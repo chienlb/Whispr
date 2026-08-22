@@ -36,8 +36,8 @@ export default function AiDemo({ lang }) {
 
       if (text.toLowerCase().includes('exe') || text.toLowerCase().includes('portable') || text.toLowerCase().includes('chạy')) {
         aiReplyText = lang === 'en'
-          ? '⚡ To run Whispr Portable: Click the "Download (.exe)" button above, save the 93.8MB file, and double-click to launch immediately without installer!'
-          : '⚡ Bạn chỉ cần nhấn nút "Tải Windows (.exe)" ở trên, tải file 93.8MB về máy và nhấp đúp để chạy ngay mà không cần qua các bước cài đặt!';
+          ? '⚡ To run Whispr Portable: Click the "Download (.exe)" button above, save the file, and double-click to launch immediately without installer!'
+          : '⚡ Bạn chỉ cần nhấn nút "Tải Windows (.exe)" ở trên, tải file về máy và nhấp đúp để chạy ngay mà không cần qua các bước cài đặt!';
       }
 
       setMessages(prev => [...prev, {
@@ -50,77 +50,64 @@ export default function AiDemo({ lang }) {
   };
 
   return (
-    <section id="aidemo" style={{ padding: '60px 0', position: 'relative' }}>
-      <div class="container">
-        <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 36px auto' }}>
-          <div class="pill-badge" style={{ marginBottom: '12px' }}>
-            <i class="fa-solid fa-sparkles"></i>
+    <section id="aidemo" className="py-16 relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-9">
+          <div className="inline-flex items-center justify-center gap-2 bg-emerald-50 dark:bg-[#0a291c] border border-emerald-200 dark:border-[#1b5e43] px-4 py-1.5 rounded-full text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-3">
+            <i className="fa-solid fa-sparkles"></i>
             <span>{t.badge}</span>
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, letterSpacing: '-1px' }}>
-            {t.titleLine1} <span class="text-gradient">{t.titleGradient}</span> {t.titleLine2}
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            {t.titleLine1} <span className="text-gradient">{t.titleGradient}</span> {t.titleLine2}
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '6px' }}>
+          <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg mt-2">
             {t.subtitle}
           </p>
         </div>
 
         {/* AI Container */}
-        <div class="card-centered" style={{ maxWidth: '780px', margin: '0 auto', padding: '24px' }}>
+        <div className="max-w-3xl mx-auto bg-white dark:bg-[#11422e] border border-slate-200 dark:border-[#1b5e43] rounded-2xl p-6 shadow-xl">
           {/* Header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid var(--border-color)', paddingBottom: '14px', marginBottom: '18px' }}>
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '2px solid var(--primary)' }} />
+          <div className="flex items-center gap-3 border-b border-slate-200 dark:border-[#1b5e43] pb-3.5 mb-4.5">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" alt="AI Avatar" className="w-10 h-10 rounded-full object-cover ring-2 ring-emerald-600" />
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="font-extrabold text-sm flex items-center gap-2 text-slate-900 dark:text-white">
                 Whispr AI Assistant
-                <span style={{ fontSize: '0.7rem', background: '#10b981', color: '#fff', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>Online</span>
+                <span className="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold">Online</span>
               </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Enterprise Neural Workspace Model</div>
+              <div className="text-xs text-slate-400 dark:text-slate-500">Enterprise Neural Workspace Model</div>
             </div>
           </div>
 
           {/* Messages */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '260px', overflowY: 'auto', paddingRight: '6px', marginBottom: '18px' }}>
+          <div className="flex flex-col gap-3 max-h-[260px] overflow-y-auto pr-1.5 mb-4.5">
             {messages.map((m, idx) => (
-              <div key={idx} style={{
-                alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start',
-                maxWidth: '85%',
-                background: m.sender === 'user' ? 'var(--primary)' : 'var(--bg-subtle)',
-                color: m.sender === 'user' ? '#ffffff' : 'var(--text-main)',
-                padding: '12px 16px',
-                borderRadius: m.sender === 'user' ? '16px 16px 2px 16px' : '16px 16px 18px 2px',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                border: m.sender === 'user' ? 'none' : '1px solid var(--border-color)'
-              }}>
+              <div 
+                key={idx} 
+                className={`max-w-[85%] p-3.5 px-4 font-medium text-sm leading-relaxed ${
+                  m.sender === 'user'
+                    ? 'self-end bg-emerald-600 text-white rounded-2xl rounded-br-xs shadow-sm'
+                    : 'self-start bg-slate-50 dark:bg-[#0a291c] text-slate-900 dark:text-slate-100 rounded-2xl rounded-bl-xs border border-slate-200 dark:border-[#1b5e43]'
+                }`}
+              >
                 <div>{m.text}</div>
-                <div style={{ fontSize: '0.68rem', opacity: 0.7, textAlign: 'right', marginTop: '4px' }}>{m.time}</div>
+                <div className="text-[10px] opacity-70 text-right mt-1">{m.time}</div>
               </div>
             ))}
             {isTyping && (
-              <div style={{ alignSelf: 'flex-start', fontSize: '0.82rem', color: 'var(--primary)', fontWeight: 700, fontStyle: 'italic' }}>
+              <div className="self-start text-xs text-emerald-600 dark:text-emerald-400 font-bold italic">
                 {t.thinking}
               </div>
             )}
           </div>
 
           {/* Sample prompts */}
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
+          <div className="flex gap-2 mb-3 flex-wrap">
             {samplePrompts.map((p, idx) => (
               <button 
                 key={idx} 
                 onClick={() => handleSend(p)}
-                style={{
-                  background: 'var(--bg-subtle)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-muted)',
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
+                className="bg-slate-50 dark:bg-[#0a291c] border border-slate-200 dark:border-[#1b5e43] text-slate-600 dark:text-slate-400 text-xs font-bold px-3 py-1.5 rounded-full hover:border-emerald-500 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
               >
                 ⚡ {p}
               </button>
@@ -128,26 +115,20 @@ export default function AiDemo({ lang }) {
           </div>
 
           {/* Input field */}
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="flex gap-2">
             <input 
               type="text" 
               value={inputValue} 
               onChange={e => setInputValue(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSend()}
               placeholder={t.placeholder}
-              style={{
-                flex: 1,
-                background: 'var(--bg-subtle)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'var(--text-main)',
-                outline: 'none',
-                fontSize: '0.9rem'
-              }}
+              className="flex-1 bg-slate-50 dark:bg-[#0a291c] border border-slate-200 dark:border-[#1b5e43] rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm outline-none focus:border-emerald-500 transition-colors placeholder:text-slate-400"
             />
-            <button onClick={() => handleSend()} class="btn-primary" style={{ padding: '12px 20px', fontSize: '0.88rem' }}>
-              <i class="fa-solid fa-paper-plane"></i>
+            <button 
+              onClick={() => handleSend()} 
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md hover:-translate-y-0.5 transition-all"
+            >
+              <i className="fa-solid fa-paper-plane text-xs"></i>
               <span>{t.send}</span>
             </button>
           </div>

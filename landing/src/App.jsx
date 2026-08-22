@@ -9,25 +9,21 @@ import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [lang, setLang] = useState('en');
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
-  return (
-    <div style={{ minHeight: '100vh', position: 'relative' }}>
-      {/* Aurora Ambient Background */}
-      <div class="aurora-bg">
-        <div class="aurora-blob-1"></div>
-        <div class="aurora-blob-2"></div>
-        <div class="aurora-blob-3"></div>
-      </div>
+  const lang = 'en';
 
-      {/* Main Layout Stack */}
-      <Navbar lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
-      <main style={{ position: 'relative', zIndex: 1 }}>
+  return (
+    <div className="min-h-screen relative font-sans">
+      {/* Navbar */}
+      <Navbar theme={theme} setTheme={setTheme} />
+      
+      {/* Main Content */}
+      <main className="relative z-10">
         <Hero lang={lang} />
         <AppPreview lang={lang} />
         <Features lang={lang} />
@@ -35,6 +31,8 @@ export default function App() {
         <DownloadSection lang={lang} />
         <FaqSection lang={lang} />
       </main>
+
+      {/* Footer */}
       <Footer lang={lang} />
     </div>
   );
